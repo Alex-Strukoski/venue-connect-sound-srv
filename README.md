@@ -1,27 +1,33 @@
-# Flask-RESTful API project template
+# venue-connect-sound-srv
 
-This project shows one of the possible ways to implement RESTful API server.
+Este projeto, criado por Alexandre Magno Strukoski (nuno.perry.strukoski@gmail.com), é uma plataforma web que conecta estabelecimentos locais com bandas e músicos para facilitar o agendamento de shows. A plataforma utiliza uma API Flask RESTful para gerenciar dados de estabelecimentos, bandas e shows. Além disso, a plataforma também suporta pagamentos internos.
 
-There are implemented two models: User and Todo, one user has many todos.
+O código-fonte do projeto pode ser encontrado no seguinte repositório do GitHub: [https://github.com/Alex-Strukoski/venue-connect-sound-srv.git](https://github.com/Alex-Strukoski/venue-connect-sound-srv.git)
 
-Main libraries used:
-1. Flask-Migrate - for handling all database migrations.
-2. Flask-RESTful - restful API library.
-3. Flask-Script - provides support for writing external scripts.
-4. Flask-SQLAlchemy - adds support for SQLAlchemy ORM.
+As principais bibliotecas utilizadas são:
 
-Project structure:
+1. Flask-Migrate - para lidar com todas as migrações de banco de dados.
+2. Flask-RESTful - biblioteca de API RESTful.
+3. Flask-Script - fornece suporte para escrever scripts externos.
+4. Flask-SQLAlchemy - adiciona suporte para o ORM SQLAlchemy.
+
+## Estrutura do Projeto
+
 ```
 .
 ├── README.md
 ├── app.py
 ├── endpoints
 │   ├── __init__.py
-│   ├── todos
+│   ├── bands
 │   │   ├── __init__.py
 │   │   ├── model.py
 │   │   └── resource.py
-│   └── users
+│   ├── venues
+│   │   ├── __init__.py
+│   │   ├── model.py
+│   │   └── resource.py
+│   └── shows
 │       ├── __init__.py
 │       ├── model.py
 │       └── resource.py
@@ -30,58 +36,68 @@ Project structure:
 └── settings.py
 ```
 
-* endpoints - holds all endpoints.
-* app.py - flask application initialization.
-* settings.py - all global app settings.
-* manage.py - script for managing application (migrations, server execution, etc.)
+## Executando
 
-## Running 
+1. Clone o repositório.
+2. Instale as dependências com `pip install -r requirements.txt`.
+3. Execute os seguintes comandos:
+   1. `python manage.py db init`
+   2. `python manage.py db migrate`
+   3. `python manage.py db upgrade`
+4. Inicie o servidor executando `python manage.py runserver` ou utilizando os scripts [`run.bat`](command:_github.copilot.openRelativePath?%5B%22run.bat%22%5D "run.bat") ou [`run.sh`](command:_github.copilot.openRelativePath?%5B%22run.sh%22%5D "run.sh").
 
-1. Clone repository.
-2. pip install requirements.txt
-3. Run following commands:
-    1. python manage.py db init
-    2. python manage.py db migrate
-    3. python manage.py db upgrade
-4. Start server by running python manage.py runserver
+## Uso
 
-## Usage
-### Users endpoint
-POST http://127.0.0.1:5000/api/users
+### Endpoint de Bandas
+
+POST http://127.0.0.1:5000/api/bands
 
 REQUEST
+
 ```json
 {
-	"name": "John John"
+	"name": "Nome da Banda"
 }
 ```
+
 RESPONSE
+
 ```json
 {
     "id": 1,
-    "name": "John John",
-    "todos": []
+    "name": "Nome da Banda",
+    "shows": []
 }
 ```
-PUT http://127.0.0.1:5000/api/users/1
+
+PUT http://127.0.0.1:5000/api/bands/1
+
+### Endpoint de Estabelecimentos
+
+POST http://127.0.0.1:5000/api/venues
 
 REQUEST
+
 ```json
 {
-	"name": "Smith Smith"
+	"name": "Nome do Estabelecimento"
 }
 ```
+
 RESPONSE
+
 ```json
 {
     "id": 1,
-    "name": "Smith Smith",
-    "todos": []
+    "name": "Nome do Estabelecimento",
+    "shows": []
 }
 ```
+
 DELETE http://127.0.0.1:5000/api/users/1
 
 RESPONSE
+
 ```json
 {
     "id": 3,
@@ -89,9 +105,11 @@ RESPONSE
     "todos": []
 }
 ```
+
 GET http://127.0.0.1:5000/api/users
 
 RESPONSE
+
 ```json
 {
     "count": 2,
@@ -120,7 +138,9 @@ RESPONSE
     ]
 }
 ```
+
 GET http://127.0.0.1:5000/api/users/2
+
 ```json
 {
     "id": 2,
@@ -128,7 +148,9 @@ GET http://127.0.0.1:5000/api/users/2
     "todos": []
 }
 ```
+
 GET http://127.0.0.1:5000/api/users?name=John John
+
 ```json
 {
     "count": 1,
@@ -152,7 +174,9 @@ GET http://127.0.0.1:5000/api/users?name=John John
     ]
 }
 ```
+
 GET http://127.0.0.1:5000/api/users?limit=1&offset=1
+
 ```json
 {
     "count": 1,
@@ -167,3 +191,7 @@ GET http://127.0.0.1:5000/api/users?limit=1&offset=1
 ```
 
 Todo endpoint is similar to Users endpoint.
+
+## Criador
+
+Este projeto foi criado por Alexandre Magno Strukoski. Você pode entrar em contato com ele através do email [nuno.perry.strukoski@gmail.com](vscode-file://vscode-app/c:/Users/joaod/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/code/electron-sandbox/workbench/workbench.html "mailto:&amp;#x6e;&amp;#117;&amp;#110;&amp;#111;&amp;#x2e;&amp;#112;&amp;#x65;&amp;#x72;&amp;#x72;&amp;#121;&amp;#46;&amp;#115;&amp;#x74;&amp;#114;&amp;#117;&amp;#107;&amp;#x6f;&amp;#115;&amp;#107;&amp;#x69;&amp;#64;&amp;#x67;&amp;#109;&amp;#x61;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109;").
